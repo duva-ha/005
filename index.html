@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECH_EXAM v1.9.1 - Updated Grade 11</title>
+    <title>TECH_EXAM v2.0 - Comprehensive Grade 11</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -24,7 +24,7 @@
 
     <div class="max-w-4xl mx-auto flex justify-between items-center mb-8">
         <div>
-            <h1 class="font-tech text-2xl text-sky-400 tracking-tighter">TECH_EXAM v1.9.1</h1>
+            <h1 class="font-tech text-2xl text-sky-400 tracking-tighter">TECH_EXAM v2.0</h1>
             <p id="grade-display" class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Hệ thống ôn tập Công nghệ</p>
         </div>
     </div>
@@ -90,9 +90,13 @@
             11: {
                 multiple: [
                     { question: "Chu trình làm việc của động cơ 4 kỳ diễn ra theo thứ tự nào?", options: ["Nạp - Nén - Nổ - Xả", "Nén - Nạp - Nổ - Xả", "Nạp - Nổ - Nén - Xả", "Xả - Nạp - Nén - Nổ"], answer: 0 },
-                    { question: "Hệ thống nào không có trên động cơ Diesel?", options: ["Hệ thống bôi trơn", "Hệ thống làm mát", "Hệ thống đánh lửa", "Hệ thống khởi động"], answer: 2 }
+                    { question: "Ở động cơ Diesel, nhiên liệu được đưa vào xi lanh ở thời điểm nào?", options: ["Đầu kỳ nạp", "Cuối kỳ nạp", "Cuối kỳ nén", "Đầu kỳ nén"], answer: 2 },
+                    { question: "Thân máy và nắp máy thường được làm bằng vật liệu gì?", options: ["Đồng", "Nhôm hoặc gang", "Nhựa kỹ thuật", "Thép chịu lực"], answer: 1 },
+                    { question: "Hệ thống nào không có trên động cơ Diesel?", options: ["Hệ thống bôi trơn", "Hệ thống làm mát", "Hệ thống đánh lửa", "Hệ thống khởi động"], answer: 2 },
+                    { question: "Nhiệm vụ của trục khuỷu là gì?", options: ["Đóng mở cửa nạp xả", "Biến chuyển động tịnh tiến thành chuyển động quay", "Phun nhiên liệu", "Tạo tia lửa điện"], answer: 1 }
                 ],
                 tf: [
+                    // CŨ (12 câu trước)
                     { q: "Câu 1: Khi tìm hiểu về hệ thống bôi trơn và làm mát, các nhận định sau đây đúng hay sai?", sub: [
                         { t: "Hệ thống bôi trơn cưỡng bức sử dụng bơm dầu để đưa dầu bôi trơn đến các bề mặt ma sát dưới áp suất cao.", a: "Đ" },
                         { t: "Dầu bôi trơn ngoài nhiệm vụ giảm ma sát còn có tác dụng làm mát, tẩy rửa và bảo vệ các bề mặt chi tiết.", a: "Đ" },
@@ -164,6 +168,62 @@
                         { t: "Thắt dây an toàn chỉ cần thiết đối với người lái xe, hành khách phía sau không cần thực hiện.", a: "S" },
                         { t: "Túi khí và dây đai an toàn là các thiết bị giúp hạn chế chấn thương cho người ngồi trong xe khi có va chạm.", a: "Đ" },
                         { t: "Việc kiểm tra hệ thống phanh và áp suất lốp trước khi khởi hành giúp đảm bảo xe vận hành an toàn.", a: "Đ" }
+                    ]},
+
+                    // MỚI (Các câu vừa cung cấp)
+                    { q: "Câu 13: Khi tìm hiểu về cấu tạo và nhiệm vụ của các bộ phận trong hệ thống truyền lực trên ô tô, các nhận định sau đây là Đúng hay Sai?", sub: [
+                        { t: "Li hợp là bộ phận có nhiệm vụ nối êm dịu hoặc ngắt tạm thời dòng truyền mô men từ động cơ đến hộp số để xe có thể dừng hoặc chuyển số.", a: "Đ" },
+                        { t: "Hộp số có nhiệm vụ thay đổi tỉ số truyền để điều chỉnh mô men và vận tốc của xe phù hợp với các điều kiện mặt đường khác nhau.", a: "Đ" },
+                        { t: "Trục các đăng được sử dụng để truyền mô men giữa các trục của hệ thống truyền lực có tâm không nằm trên cùng một đường thẳng.", a: "Đ" },
+                        { t: "Bộ vi sai có nhiệm vụ phân chia mô men cho hai bánh xe chủ động và bắt buộc hai bánh xe này phải luôn quay cùng một vận tốc khi xe đi vào đường vòng để đảm bảo tính ổn định.", a: "S" }
+                    ]},
+                    { q: "Câu 14: Khi tìm hiểu về khái niệm và phân loại động cơ đốt trong (ĐCĐT), các nhận định sau đây đúng hay sai?", sub: [
+                        { t: "ĐCĐT là loại động cơ nhiệt mà quá trình đốt cháy nhiên liệu diễn ra bên ngoài xi lanh để tạo ra nhiệt năng.", a: "S" },
+                        { t: "Dựa vào số hành trình của pít tông trong một chu trình công tác, ĐCĐT được chia thành loại 2 kì và 4 kì.", a: "Đ" },
+                        { t: "Cấu tạo chung của ĐCĐT bao gồm 2 cơ cấu chính (cơ cấu trục khuỷu thanh truyền, cơ cấu phối khí) và nhiều hệ thống hỗ trợ.", a: "Đ" },
+                        { t: "Động cơ Diesel và động cơ xăng là cách phân loại động cơ dựa trên cách bố trí xi lanh.", a: "S" }
+                    ]},
+                    { q: "Câu 15: Liên quan đến các thông số kĩ thuật và chu trình công tác của động cơ, các phát biểu sau đây đúng hay sai?", sub: [
+                        { t: "Hành trình của pít tông (S) là quãng đường pít tông dịch chuyển giữa hai điểm chết và có giá trị bằng 2 lần bán kính quay của trục khuỷu (R).", a: "Đ" },
+                        { t: "Tỉ số nén (ε) được tính bằng tỉ số giữa thể tích toàn phần (Va) và thể tích buồng cháy (Vc).", a: "Đ" },
+                        { t: "Ở kì nạp của động cơ Diesel 4 kì, hệ thống nạp sẽ đưa hỗn hợp nhiên liệu Diesel và không khí vào trong xi lanh.", a: "S" },
+                        { t: "Động cơ 4 kì thực hiện một chu trình công tác trong 2 vòng quay của trục khuỷu.", a: "Đ" }
+                    ]},
+                    { q: "Câu 16: Về cấu tạo của cơ cấu trục khuỷu thanh truyền, các khẳng định sau đúng hay sai?", sub: [
+                        { t: "Pít tông có cấu tạo gồm 3 phần chính là đỉnh, đầu và thân.", a: "Đ" },
+                        { t: "Thanh truyền là chi tiết nối giữa pít tông và trục khuỷu, trong đó đầu to của thanh truyền được lắp với chốt pít tông.", a: "S" },
+                        { t: "Trục khuỷu nhận lực từ thanh truyền để tạo ra mô men quay truyền tới máy công tác.", a: "Đ" },
+                        { t: "Bánh đà có vai trò giúp pít tông vượt qua các điểm chết và giúp trục khuỷu quay đều hơn nhờ khả năng lưu trữ động năng.", a: "Đ" }
+                    ]},
+                    { q: "Câu 17: Khi nói về cơ cấu phối khí và các bộ phận liên quan, các nhận định sau đây đúng hay sai?", sub: [
+                        { t: "Nhiệm vụ của cơ cấu phối khí là đóng, mở các cửa nạp và cửa thải đúng thời điểm để động cơ thực hiện quá trình trao đổi khí.", a: "Đ" },
+                        { t: "Ở động cơ 4 kì, số vòng quay của trục cam bằng với số vòng quay của trục khuỷu để đảm bảo các xupáp đóng mở đúng kì.", a: "S" },
+                        { t: "Áo nước hoặc các cánh tản nhiệt là các bộ phận thuộc thân máy để phục vụ cho hệ thống làm mát.", a: "Đ" },
+                        { t: "Buồng cháy của động cơ là không gian được giới hạn bởi nắp máy, xi lanh và đỉnh pít tông khi pít tông ở điểm chết trên.", a: "Đ" }
+                    ]},
+                    { q: "Câu 18: Khi tìm hiểu về các nhóm ngành nghề trong lĩnh vực cơ khí động lực, các nhận định sau đây đúng hay sai?", sub: [
+                        { t: "Nhóm nghề nghiên cứu, thiết kế và phát triển đòi hỏi người thực hiện phải có tư duy sáng tạo, trình độ cao và sự tỉ mỉ.", a: "Đ" },
+                        { t: "Công việc sản xuất và lắp ráp các sản phẩm cơ khí động lực chỉ yêu cầu về trình độ chuyên môn mà không cần đảm bảo yêu cầu về sức khỏe.", a: "S" },
+                        { t: "Nhóm nghề bảo dưỡng và sửa chữa bao gồm các công việc như kiểm tra, chẩn đoán trạng thái kỹ thuật và khắc phục các sự cố hiện hữu của máy.", a: "Đ" },
+                        { t: "Kỹ sư kỹ thuật ô tô, kỹ sư cơ khí động lực là những chức danh tiêu biểu thuộc nhóm nghề bảo dưỡng và sửa chữa máy cơ khí động lực.", a: "S" }
+                    ]},
+                    { q: "Câu 19: Về khái niệm và cấu tạo chung của động cơ đốt trong (ĐCĐT), các phát biểu sau đây đúng hay sai?", sub: [
+                        { t: "ĐCĐT là loại động cơ nhiệt mà quá trình biến đổi nhiệt năng thành công cơ học diễn ra ngay trong xi lanh của động cơ.", a: "Đ" },
+                        { t: "Dựa theo nhiên liệu sử dụng, ĐCĐT được chia thành 3 loại chính: động cơ xăng, động cơ Diesel và động cơ gas.", a: "Đ" },
+                        { t: "Một chu trình công tác của động cơ 2 kì được thực hiện trong 2 hành trình của pít tông.", a: "Đ" },
+                        { t: "Hệ thống đánh lửa là hệ thống bắt buộc phải có trên cả động cơ xăng và động cơ Diesel để đốt cháy nhiên liệu.", a: "S" }
+                    ]},
+                    { q: "Câu 20: Liên quan đến các thông số cơ bản và nguyên lí làm việc của động cơ 4 kì, các nhận định sau đây đúng hay sai?", sub: [
+                        { t: "Điểm chết dưới (ĐCD) là vị trí mà tại đó đỉnh pít tông ở xa tâm trục khuỷu nhất.", a: "S" },
+                        { t: "Thể tích công tác (Vs) là không gian được giới hạn bởi hai điểm chết của xi lanh.", a: "Đ" },
+                        { t: "Ở kì nén của động cơ xăng 4 kì, cả xupáp nạp và xupáp thải đều đóng, hòa khí trong xi lanh bị nén lại làm áp suất và nhiệt độ tăng lên.", a: "Đ" },
+                        { t: "Trong kì thải, pít tông dịch chuyển từ ĐCD lên ĐCT để đẩy khí thải trong xi lanh qua cửa thải ra ngoài.", a: "Đ" }
+                    ]},
+                    { q: "Câu 21: Khi nghiên cứu về các chi tiết trong cơ cấu trục khuỷu thanh truyền, các khẳng định sau đúng hay sai?", sub: [
+                        { t: "Đỉnh pít tông là nơi trực tiếp tiếp nhận áp lực đẩy của khí cháy và thường có 3 dạng: đỉnh bằng, đỉnh lồi, đỉnh lõm.", a: "Đ" },
+                        { t: "Thân thanh truyền là bộ phận dùng để lắp với chốt pít tông, giúp truyền lực giữa pít tông và trục khuỷu.", a: "S" },
+                        { t: "Má khuỷu là bộ phận dùng để nối giữa cổ khuỷu và chốt khuỷu của trục khuỷu.", a: "Đ" },
+                        { t: "Bánh đà có vai trò lưu trữ động năng để giúp trục khuỷu quay đều và hỗ trợ pít tông vượt qua các điểm chết.", a: "Đ" }
                     ]}
                 ]
             }
@@ -226,10 +286,10 @@
                         else if(userChoice === "S") btnS = "active-tf";
                         div.innerHTML += `
                             <div class="flex flex-col md:flex-row md:items-center justify-between p-4 border-b border-white/5 last:border-0 gap-3">
-                                <span class="flex-1 text-sm">${String.fromCharCode(97+sIdx)}) ${s.t}</span>
+                                <span class="flex-1 text-sm leading-relaxed">${String.fromCharCode(97+sIdx)}) ${s.t}</span>
                                 <div class="flex gap-2">
-                                    <button onclick="pickTF('${subId}', 'Đ')" class="w-20 py-2 rounded-lg border font-bold text-xs ${btnD}" ${state.isReview?'disabled':''}>ĐÚNG</button>
-                                    <button onclick="pickTF('${subId}', 'S')" class="w-20 py-2 rounded-lg border font-bold text-xs ${btnS}" ${state.isReview?'disabled':''}>SAI</button>
+                                    <button onclick="pickTF('${subId}', 'Đ')" class="w-20 py-2 rounded-lg border font-bold text-xs transition-all ${btnD}" ${state.isReview?'disabled':''}>ĐÚNG</button>
+                                    <button onclick="pickTF('${subId}', 'S')" class="w-20 py-2 rounded-lg border font-bold text-xs transition-all ${btnS}" ${state.isReview?'disabled':''}>SAI</button>
                                 </div>
                             </div>`;
                     });
@@ -242,7 +302,7 @@
                                     if(i === q.answer) cls = "bg-emerald-600 border-emerald-500 text-white";
                                     else if(state.userAns[idx] === i) cls = "bg-red-600 border-red-500 text-white";
                                 } else if(state.userAns[idx] === i) cls = "selected-mc";
-                                return `<button onclick="pickMC(${idx}, ${i})" class="p-4 border rounded-xl text-left text-sm flex items-start ${cls}" ${state.isReview?'disabled':''}>
+                                return `<button onclick="pickMC(${idx}, ${i})" class="p-4 border rounded-xl text-left text-sm flex items-start transition-all ${cls}" ${state.isReview?'disabled':''}>
                                     <span class="font-bold mr-3 text-sky-500">${String.fromCharCode(65+i)}.</span> <span>${opt}</span>
                                 </button>`;
                             }).join('')}
@@ -254,7 +314,7 @@
 
         function pickMC(qIdx, oIdx) { state.userAns[qIdx] = oIdx; render(); }
         function pickTF(id, val) { state.userAns[id] = val; render(); }
-        function confirmSubmit() { if(confirm("Nộp bài làm?")) submit(); }
+        function confirmSubmit() { if(confirm("Xác nhận nộp bài làm?")) submit(); }
 
         function submit() {
             let score = 0, correctCount = 0, totalCount = 0;
@@ -265,8 +325,8 @@
                         if(state.userAns[`${idx}_${si}`] === s.a) { correctCount++; score += 0.25; }
                     });
                 });
-                // Chuẩn hóa điểm hệ 10 nếu tổng số ý không phải bội của 40 (10 điểm)
-                score = (score / (totalCount * 0.25)) * 10;
+                // Hệ 10
+                score = (correctCount / totalCount) * 10;
             } else {
                 totalCount = state.list.length;
                 state.list.forEach((q, idx) => { if(state.userAns[idx] === q.answer) correctCount++; });
