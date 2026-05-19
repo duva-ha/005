@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECH_EXAM v3.1 - Maintenance Mode</title>
+    <title>TECH_EXAM v3.2 - System Maintenance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -19,138 +19,156 @@
         .wrong-tf { background: #dc2626 !important; color: white !important; }
         .selected-mc { background: rgba(14, 165, 233, 0.3); border-color: #0ea5e9; color: white; }
         #timer-display.low-time { color: #ef4444; animation: pulse 1s infinite; }
+        
+        /* Hiệu ứng nhấp nháy cho màn hình bảo trì */
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .blink { animation: pulse 2s infinite; }
         .section-header { border-left: 4px solid #0ea5e9; padding-left: 1rem; margin: 2rem 0 1.5rem 0; }
-        .btn-disabled { opacity: 0.5; cursor: not-allowed; position: relative; }
-        .maintenance-tag { position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-family: sans-serif; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-4 md:p-8 flex flex-col justify-center min-h-vh">
 
-    <div class="max-w-4xl mx-auto flex justify-between items-center mb-8">
-        <div>
-            <h1 class="font-tech text-2xl text-sky-400 tracking-tighter">TECH_EXAM v3.1</h1>
-            <p id="grade-display" class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Hệ thống ôn tập Công nghệ</p>
+    <!-- MÀN HÌNH BẢO TRÌ TOÀN TRANG (MAINTENANCE SCREEN) -->
+    <div id="maintenance-screen" class="max-w-xl mx-auto text-center py-20 px-6 glass rounded-3xl border border-red-500/30 my-auto shadow-2xl shadow-red-950/20">
+        <div class="w-20 h-20 bg-red-950/50 border border-red-500/50 rounded-full flex items-center justify-center mx-auto mb-6 blink">
+            <svg class="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
         </div>
-        <div id="timer-container" class="hidden glass px-6 py-2 rounded-full border border-sky-500/50">
-            <span class="text-xs text-slate-400 uppercase mr-2 font-bold">Thời gian:</span>
-            <span id="timer-display" class="font-tech text-xl text-sky-400">25:00</span>
-        </div>
+        <h1 class="font-tech text-3xl text-red-400 tracking-wider mb-3">SYSTEM MAINTENANCE</h1>
+        <p class="text-sm font-tech text-slate-500 uppercase tracking-widest mb-6">TECH_EXAM Platform</p>
+        <div class="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent mb-6"></div>
+        <p class="text-slate-300 text-sm leading-relaxed mb-2">
+            Hệ thống ôn tập đang được nâng cấp và bảo trì định kỳ nhằm cập nhật thêm dữ liệu đề thi mới.
+        </p>
+        <p class="text-sky-400 text-xs font-mono">
+            Vui lòng quay lại sau. Xin lỗi vì sự bất tiện này!
+        </p>
     </div>
 
-    <div class="max-w-4xl mx-auto">
-        <!-- SCREEN 1: CHỌN KHỐI -->
-        <div id="screen-1" class="text-center py-12">
-            <h2 class="text-3xl font-bold mb-10">Chọn Khối Lớp</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-md mx-auto">
-                <button onclick="selectGrade(10)" class="btn-tech glass p-8 rounded-2xl text-xl font-bold">KHỐI 10</button>
-                <button onclick="maintenanceAlert()" class="btn-disabled glass p-8 rounded-2xl text-xl font-bold">
-                    KHỐI 11
-                    <span class="maintenance-tag">BẢO TRÌ</span>
-                </button>
+    <!-- TOÀN BỘ GIAO DIỆN HỆ THỐNG ĐƯỢC ẨN ĐI BẰNG LỚP KHUNG HOÀN CHỈNH PHÍA DƯỚI -->
+    <div id="app-content" class="hidden">
+        <div class="max-w-4xl mx-auto flex justify-between items-center mb-8">
+            <div>
+                <h1 class="font-tech text-2xl text-sky-400 tracking-tighter">TECH_EXAM v3.2</h1>
+                <p id="grade-display" class="text-xs text-slate-500 uppercase tracking-widest font-semibold">Hệ thống ôn tập Công nghệ</p>
+            </div>
+            <div id="timer-container" class="hidden glass px-6 py-2 rounded-full border border-sky-500/50">
+                <span class="text-xs text-slate-400 uppercase mr-2 font-bold">Thời gian:</span>
+                <span id="timer-display" class="font-tech text-xl text-sky-400">25:00</span>
             </div>
         </div>
 
-        <!-- SCREEN 2: CHỌN HÌNH THỨC -->
-        <div id="screen-2" class="hidden text-center py-12">
-            <h2 id="screen-2-title" class="text-3xl font-bold mb-10 text-sky-400 uppercase">CHỌN HÌNH THỨC</h2>
-            <div id="type-options" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"></div>
-            <button onclick="goScreen(1)" class="mt-8 text-slate-500 hover:text-white transition-colors">← Quay lại</button>
-        </div>
-
-        <!-- SCREEN 3: LÀM BÀI -->
-        <div id="screen-3" class="hidden">
-            <div id="quiz-container" class="space-y-8 mb-32"></div>
-            <div class="fixed bottom-0 left-0 w-full glass p-4 flex justify-center border-t border-sky-500/30 z-50">
-                <button id="submit-btn" onclick="confirmSubmit()" class="bg-sky-600 hover:bg-sky-500 text-white px-12 py-3 rounded-xl font-bold uppercase tracking-widest transition-all">Nộp Bài</button>
+        <div class="max-w-4xl mx-auto">
+            <!-- SCREEN 1 -->
+            <div id="screen-1" class="text-center py-12">
+                <h2 class="text-3xl font-bold mb-10">Chọn Khối Lớp</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-md mx-auto">
+                    <button onclick="selectGrade(10)" class="btn-tech glass p-8 rounded-2xl text-xl font-bold">KHỐI 10</button>
+                    <button onclick="alert('Hệ thống đang bảo trì')" class="btn-tech glass p-8 rounded-2xl text-xl font-bold opacity-50">KHỐI 11</button>
+                </div>
             </div>
-        </div>
 
-        <!-- SCREEN 4: KẾT QUẢ -->
-        <div id="screen-4" class="hidden text-center py-12">
-            <h2 class="font-tech text-4xl text-sky-400 mb-6 uppercase tracking-tighter">Kết quả bài làm</h2>
-            <div class="glass p-10 rounded-3xl inline-block mb-8 min-w-[240px]">
-                <p id="score-text" class="text-7xl font-bold text-white">0.00</p>
-                <p class="text-slate-400 mt-2 font-semibold tracking-widest uppercase text-xs">Điểm số (Tối đa 7.0)</p>
-                <p id="detail-text" class="text-sm text-sky-400 mt-4 font-mono bg-sky-950/30 py-2 px-4 rounded-lg">Đúng 0 câu/ý</p>
+            <!-- SCREEN 2 -->
+            <div id="screen-2" class="hidden text-center py-12">
+                <h2 id="screen-2-title" class="text-3xl font-bold mb-10 text-sky-400 uppercase">CHỌN HÌNH THỨC</h2>
+                <div id="type-options" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto"></div>
+                <button onclick="goScreen(1)" class="mt-8 text-slate-500 hover:text-white transition-colors">← Quay lại</button>
             </div>
-            <div class="flex flex-col items-center gap-4">
-                <button onclick="showReview()" class="bg-emerald-600 hover:bg-emerald-500 px-10 py-3 rounded-full font-bold w-64 transition-all">XEM LẠI ĐÁP ÁN</button>
-                <button onclick="location.reload()" class="btn-tech glass px-10 py-3 rounded-full font-bold w-64 transition-all">LÀM ĐỀ KHÁC</button>
+
+            <!-- SCREEN 3 -->
+            <div id="screen-3" class="hidden">
+                <div id="quiz-container" class="space-y-8 mb-32"></div>
+                <div class="fixed bottom-0 left-0 w-full glass p-4 flex justify-center border-t border-sky-500/30 z-50">
+                    <button id="submit-btn" onclick="confirmSubmit()" class="bg-sky-600 hover:bg-sky-500 text-white px-12 py-3 rounded-xl font-bold uppercase tracking-widest transition-all">Nộp Bài</button>
+                </div>
+            </div>
+
+            <!-- SCREEN 4 -->
+            <div id="screen-4" class="hidden text-center py-12">
+                <h2 class="font-tech text-4xl text-sky-400 mb-6 uppercase tracking-tighter">Kết quả bài làm</h2>
+                <div class="glass p-10 rounded-3xl inline-block mb-8 min-w-[240px]">
+                    <p id="score-text" class="text-7xl font-bold text-white">0.00</p>
+                    <p class="text-slate-400 mt-2 font-semibold tracking-widest uppercase text-xs">Điểm số (Tối đa 7.0)</p>
+                    <p id="detail-text" class="text-sm text-sky-400 mt-4 font-mono bg-sky-950/30 py-2 px-4 rounded-lg">Đúng 0 câu/ý</p>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <button onclick="showReview()" class="bg-emerald-600 hover:bg-emerald-500 px-10 py-3 rounded-full font-bold w-64 transition-all">XEM LẠI ĐÁP ÁN</button>
+                    <button onclick="location.reload()" class="btn-tech glass px-10 py-3 rounded-full font-bold w-64 transition-all">LÀM ĐỀ KHÁC</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // LƯU TRỮ TOÀN BỘ NGÂN HÀNG DỮ LIỆU CÂU HỎI NHƯ CŨ
+        const commonMultiple = [
+            { question: "Vẽ kĩ thuật có vai trò gì trong đời sống?", options: ["Sử dụng sản phẩm hiệu quả và an toàn", "Để chế tạo sản phẩm", "Để lắp ráp sản phẩm", "Để kiểm tra sản phẩm"], answer: 0 },
+            { question: "Mặt phẳng nằm ngang gọi là gì?", options: ["Mặt phẳng chiếu đứng", "Mặt phẳng chiếu bằng", "Mặt phẳng chiếu cạnh", "Mặt phẳng chiếu nghiêng"], answer: 1 },
+            { question: "Hướng chiếu từ trên xuống dưới sẽ thu được hình chiếu nào?", options: ["Hình chiếu đứng", "Hình chiếu bằng", "Hình chiếu cạnh", "Hình chiếu từ phía sau"], answer: 1 },
+            { question: "Tỉ lệ 1:2 là loại tỉ lệ nào?", options: ["Tỉ lệ phóng to", "Tỉ lệ thu nhỏ", "Tỉ lệ nguyên hình", "Tỉ lệ bất kì"], answer: 1 },
+            { question: "Nét liền đậm thường được dùng để vẽ đường nào?", options: ["Đường gióng", "Đường tâm", "Đường bao thấy", "Đường bao khuất"], answer: 2 },
+            { question: "Khổ giấy A4 có kích thước bao nhiêu?", options: ["210x297 mm", "297x420 mm", "420x594 mm", "594x841 mm"], answer: 0 },
+            { question: "Đường chân ren được vẽ bằng nét gì?", options: ["Liền đậm", "Liền mảnh", "Đứt mảnh", "Gạch chấm mảnh"], answer: 1 },
+            { question: "Trong bản vẽ kĩ thuật, đơn vị độ dài thường dùng là?", options: ["cm", "mm", "m", "dm"], answer: 1 },
+            { question: "Hình cắt dùng để làm gì?", options: ["Biểu diễn hình dạng bên ngoài", "Biểu diễn cấu tạo bên trong", "Biểu diễn kích thước", "Biểu diễn yêu cầu kĩ thuật"], answer: 1 },
+            { question: "Ren trong nhìn từ phía ngoài vào, đường đỉnh ren vẽ bằng nét gì?", options: ["Liền mảnh", "Liền đậm", "Đứt mảnh", "Gạch chấm"], answer: 1 },
+            { question: "Bản vẽ chi tiết bao gồm các nội dung nào?", options: ["Hình biểu diễn, kích thước, yêu cầu kĩ thuật, khung tên", "Hình biểu diễn, bảng kê, khung tên", "Hình biểu diễn, kích thước, bảng kê", "Yêu cầu kĩ thuật, bảng kê, hình cắt"], answer: 0 },
+            { question: "Bảng kê có trong loại bản vẽ nào?", options: ["Bản vẽ chi tiết", "Bản vẽ lắp", "Bản vẽ nhà", "Bản vẽ cơ sở"], answer: 1 },
+            { question: "Mặt bằng của bản vẽ nhà dùng để làm gì?", options: ["Biểu diễn chiều cao ngôi nhà", "Biểu diễn vị trí tường, cửa, thiết bị", "Biểu diễn hình dáng mái nhà", "Biểu diễn cấu tạo móng"], answer: 1 },
+            { question: "Lệnh 'Line' trong AutoCAD dùng để vẽ gì?", options: ["Đường tròn", "Đoạn thẳng", "Hình chữ nhật", "Cung tròn"], answer: 1 },
+            { question: "Thiết kế kĩ thuật là gì?", options: ["Quá trình sản xuất sản phẩm", "Hoạt động sáng tạo giải quyết vấn đề bằng công nghệ", "Việc mua bán sản phẩm", "Việc sửa chữa máy móc"], answer: 1 },
+            { question: "Bước đầu tiên của quy trình thiết kế kĩ thuật là gì?", options: ["Xây dựng nguyên mẫu", "Xác định vấn đề", "Tìm hiểu tổng quan", "Xác định yêu cầu"], answer: 1 },
+            { question: "Yếu tố nhân trắc học trong thiết kế là gì?", options: ["Giá thành sản phẩm", "Sự phù hợp với cơ thể con người", "Màu sắc sản phẩm", "Độ bền vật liệu"], answer: 1 },
+            { question: "Vòng đời sản phẩm kết thúc ở giai đoạn nào?", options: ["Sử dụng", "Bảo trì", "Thải loại/Tái chế", "Sản xuất"], answer: 2 },
+            { question: "Hồ sơ kĩ thuật bao gồm gì?", options: ["Chỉ có bản vẽ", "Chỉ có thuyết minh", "Bản vẽ, thuyết minh và các tài liệu liên quan", "Mẫu thử sản phẩm"], answer: 2 },
+            { question: "Nguyên tắc đơn giản hóa trong thiết kế giúp gì?", options: ["Tăng tính thẩm mỹ cực cao", "Dễ sản xuất và sửa chữa", "Tăng giá thành", "Sử dụng nhiều chi tiết phức tạp"], answer: 1 },
+            { question: "Công nghệ CAD giúp ích gì cho thiết kế?", options: ["Vẽ chậm hơn vẽ tay", "Tăng độ chính xác và hiệu quả", "Chỉ dùng cho kiến trúc", "Không thể chỉnh sửa"], answer: 1 },
+            { question: "Mặt đứng của bản vẽ nhà thể hiện điều gì?", options: ["Kết cấu sàn", "Hình dáng bên ngoài ngôi nhà", "Vị trí giường ngủ", "Hệ thống điện"], answer: 1 },
+            { question: "Đường gióng kích thước vẽ bằng nét gì?", options: ["Liền đậm", "Liền mảnh", "Gạch chấm", "Đứt mảnh"], answer: 1 },
+            { question: "Hình chiếu đứng có hướng chiếu từ đâu?", options: ["Từ trên xuống", "Từ trước tới", "Từ trái sang", "Từ phải sang"], answer: 1 },
+            { question: "Kí hiệu ren M10x1 thì 'M' nghĩa là gì?", options: ["Ren hệ Mỹ", "Ren hệ Mét", "Ren vuông", "Ren tròn"], answer: 1 },
+            { question: "Tỉ lệ 5:1 là tỉ lệ gì?", options: ["Thu nhỏ", "Phóng to", "Nguyên hình", "Tỉ lệ bản vẽ nhà"], answer: 1 },
+            { question: "Trong AutoCAD, phím 'Esc' dùng để làm gì?", options: ["Lưu bản vẽ", "Hủy lệnh đang thực hiện", "Xóa đối tượng", "Thoát phần mềm"], answer: 1 },
+            { question: "Phát triển bền vững là gì?", options: ["Khai thác hết tài nguyên", "Đáp ứng nhu cầu hiện tại mà không hại đến tương lai", "Chỉ tập trung vào lợi nhuận", "Dùng năng lượng hóa thạch"], answer: 1 },
+            { question: "Đường tâm vẽ bằng nét gì?", options: ["Liền đậm", "Gạch chấm mảnh", "Nét đứt", "Nét uốn lượn"], answer: 1 },
+            { question: "Bản vẽ lắp KHÔNG có nội dung nào sau đây?", options: ["Khung tên", "Bảng kê", "Yêu cầu kĩ thuật", "Kích thước từng chi tiết nhỏ"], answer: 3 }
+        ];
+
+        const commonTF = [
+            { q: "Trong quy trình thiết kế kĩ thuật, hãy xác định tính Đúng hoặc Sai:", sub: [{ t: "Quy trình thiết kế kĩ thuật là tiến trình tuyến tính một chiều.", a: "S" }, { t: "Bước 'Xây dựng nguyên mẫu' thực hiện sau khi lựa chọn giải pháp tối ưu.", a: "Đ" }, { t: "Tìm hiểu tổng quan giúp tránh sai lầm đã có.", a: "Đ" }, { t: "Hồ sơ kĩ thuật chỉ bao gồm bản vẽ chi tiết.", a: "S" }] },
+            { q: "Đối với nguyên tắc bền vững trong thiết kế:", sub: [{ t: "Đơn giản hoá khuyến khích kết cấu phức tạp.", a: "S" }, { t: "Tối thiểu tài chính nhằm tạo sản phẩm tốt trong nguồn lực hữu hạn.", a: "Đ" }, { t: "Tiết kiệm tài nguyên không cần quan tâm năng lượng tái tạo.", a: "S" }, { t: "Quy tắc 6R là nội dung cốt lõi của bảo vệ môi trường.", a: "Đ" }] },
+            { q: "Trong bản vẽ kĩ thuật, quy ước biểu diễn ren:", sub: [{ t: "Ren nhìn thấy: đỉnh ren và giới hạn ren vẽ bằng nét liền đậm.", a: "Đ" }, { t: "Vòng chân ren vẽ hở 1/4 vòng bằng nét liền mảnh.", a: "Đ" }, { t: "Ren che khuất: đỉnh ren vẽ bằng nét đứt mảnh.", a: "Đ" }, { t: "Đường chân ren vẽ bằng nét liền đậm.", a: "S" }] },
+            { q: "Về kí hiệu và ứng dụng của ren:", sub: [{ t: "Ren ngoài hình thành ở mặt trong của lỗ.", a: "S" }, { t: "Ren dùng để ghép nối và truyền chuyển động.", a: "Đ" }, { t: "Sq dùng cho ren vuông, Tr dùng cho ren thang.", a: "Đ" }, { t: "Hai chi tiết lắp ghép được chỉ cần cùng đường kính.", a: "S" }] },
+            { q: "Bản vẽ chi tiết là tài liệu kĩ thuật quan trọng:", sub: [{ t: "Bản vẽ chi tiết gồm: hình biểu diễn, kích thước, yêu cầu kĩ thuật, khung tên.", a: "Đ" }, { t: "Yêu cầu kĩ thuật chỉ gồm chỉ dẫn vật liệu.", a: "S" }, { t: "Dùng làm căn cứ chế tạo và kiểm tra chi tiết.", a: "Đ" }, { t: "Bảng kê là thành phần bắt buộc của bản vẽ chi tiết.", a: "S" }] },
+            { q: "Về bản vẽ lắp và vị trí tương quan:", sub: [{ t: "Bản vẽ lắp dùng để lắp ráp, vận hành và kiểm tra.", a: "Đ" }, { t: "Kích thước chung xác định tổng chiều dài, rộng, cao.", a: "Đ" }, { t: "Bảng kê liệt kê số thứ tự, tên gọi, số lượng, vật liệu.", a: "Đ" }, { t: "Dựa vào bản vẽ lắp biết chính xác độ nhám từng chi tiết đơn lẻ.", a: "S" }] },
+            { q: "Về các loại hình biểu diễn trong bản vẽ nhà:", sub: [{ t: "Mặt bằng đi qua các cửa sổ (cách sàn khoảng 1,5m).", a: "Đ" }, { t: "Mặt đứng thể hiện hình dáng kiến trúc bên ngoài.", a: "Đ" }, { t: "Mặt cắt thể hiện kết cấu và chiều cao các tầng.", a: "Đ" }, { t: "Hình chiếu phối cảnh chỉ dùng để trang trí.", a: "S" }] },
+            { q: "Về quy ước trong bản vẽ xây dựng:", sub: [{ t: "Thiết kế xây dựng gồm: phương án, kĩ thuật, thi công.", a: "Đ" }, { t: "Mặt bằng tổng thể thể hiện vị trí công trình, cây xanh.", a: "Đ" }, { t: "Các bộ phận cửa, cầu thang dùng kí hiệu quy ước.", a: "Đ" }, { t: "Mặt phẳng cắt đi dọc nhà thu được mặt đứng.", a: "S" }] },
+            { q: "Về ứng dụng phần mềm CAD:", sub: [{ t: "Lập bản vẽ bằng máy tính chính xác và nhanh chóng.", a: "Đ" }, { t: "Quy trình CAD kết thúc bằng thiết lập thông số ban đầu.", a: "S" }, { t: "CAD hỗ trợ cơ khí, xây dựng, kiến trúc.", a: "Đ" }, { t: "Bản vẽ điện tử khó sửa chữa hơn bản vẽ tay.", a: "S" }] },
+            { q: "Về chức năng trong AutoCAD:", sub: [{ t: "Vùng đồ hoạ hiển thị nội dung bản vẽ, hệ toạ độ.", a: "Đ" }, { t: "OSNAP giúp xác định điểm đầu, cuối chính xác.", a: "Đ" }, { t: "Ortho bật cho phép vẽ đường xiên tự do.", a: "S" }, { t: "Zoom dùng thay đổi kích thước thực tế vật thể.", a: "S" }] },
+            { q: "Đặc điểm thiết kế kĩ thuật:", sub: [{ t: "Là hoạt động vận dụng toán học, khoa học và công nghệ.", a: "Đ" }, { t: "Không cần bước thử nghiệm hay đánh giá.", a: "S" }, { t: "Giúp nhìn nhận vấn đề mang tính hệ thống.", a: "Đ" }, { t: "Thiết kế kĩ thuật và mĩ thuật là một.", a: "S" }] },
+            { q: "Vai trò thiết kế kĩ thuật:", sub: [{ t: "Giúp cải tiến và tạo ra sản phẩm mới.", a: "Đ" }, { t: "Nhà thiết kế sản phẩm chỉ thiết kế công viên.", a: "S" }, { t: "Đòi hỏi tư duy không gian và năng lực sáng tạo.", a: "Đ" }, { t: "Kiến trúc sư thiết kế toà nhà và giám sát bảo trì.", a: "Đ" }] },
+            { q: "Tính lặp lại trong quy trình thiết kế:", sub: [{ t: "Người thiết kế có thể quay lại các bước trước để điều chỉnh.", a: "Đ" }, { t: "Xác định yêu cầu không liên quan đến kiểm chứng giải pháp.", a: "S" }, { t: "Tìm hiểu tổng quan giúp tránh sai lầm lặp lại.", a: "Đ" }, { t: "Nguyên mẫu dùng để kiểm tra mức độ đáp ứng tiêu chí.", a: "Đ" }] },
+            { q: "Nhiệm vụ trong quy trình thiết kế:", sub: [{ t: "Xác định vấn đề cần trả lời: Vấn đề là gì? Ai gặp?.", a: "Đ" }, { t: "Chỉ nên đưa ra một giải pháp duy nhất để tập trung.", a: "S" }, { t: "Hồ sơ kĩ thuật gồm kết cấu và quy trình công nghệ.", a: "Đ" }, { t: "Xây dựng nguyên mẫu là bước cuối cùng.", a: "S" }] },
+            { q: "Yếu tố sản phẩm trong thiết kế:", sub: [{ t: "Thẩm mĩ không cần phù hợp chức năng.", a: "S" }, { t: "Nhân trắc đảm bảo phù hợp kích thước cơ thể.", a: "Đ" }, { t: "Màu đỏ biểu thị nguy hiểm, xanh biểu thị an toàn.", a: "Đ" }, { t: "Thiết kế bền vững không cần xem xét môi trường.", a: "S" }] },
+            { q: "Yếu tố chi phối quá trình thiết kế:", sub: [{ t: "Khuyen khích dùng năng lượng hoá thạch.", a: "S" }, { t: "Vòng đời sản phẩm đánh giá mức tiêu hao năng lượng.", a: "Đ" }, { t: "Tài chính quyết định chất lượng và giá thành.", a: "Đ" }, { t: "Công nghệ hiện có có thể là ràng buộc.", a: "Đ" }] },
+            { q: "Nguyên tắc tối ưu trong giải pháp:", sub: [{ t: "Lặp đi lặp lại là tiến trình một chiều.", a: "S" }, { t: "Đơn giản hoá tối giản hình thức và chức năng.", a: "Đ" }, { t: "Tối ưu chỉ tập trung khách hàng.", a: "S" }, { t: "Tối thiểu tài chính giúp chi phí thấp nhất.", a: "Đ" }] },
+            { q: "Thiết kế bảo vệ tài nguyên:", sub: [{ t: "Ưu tiên năng lượng không tái tạo như dầu thô.", a: "S" }, { t: "Sử dụng ít vật liệu nhất vẫn đảm bảo độ bền.", a: "Đ" }, { t: "Quy tắc 6R là cốt lõi bảo vệ môi trường.", a: "Đ" }, { t: "Sử dụng vật liệu dễ phân huỷ.", a: "Đ" }] },
+            { q: "Kiểm soát chất lượng quy trình:", sub: [{ t: "Lặp lại nhằm điều chỉnh chất lượng từng bước.", a: "Đ" }, { t: "Xây dựng nguyên mẫu có tính lặp lại cao.", a: "Đ" }, { t: "Đơn giản hoá khuyến khích hình thức cầu kì.", a: "S" }, { t: "Phân tích giải pháp hiện có hỗ trợ đơn giản hoá.", a: "Đ" }] },
+            { q: "Ràng buộc trong lựa chọn giải pháp:", sub: [{ t: "Giải pháp tối ưu không bị ràng buộc bởi chi phí.", a: "S" }, { t: "Nhu cầu khách hàng là ràng buộc quan trọng nhất.", a: "Đ" }, { t: "Tối thiểu tài chính giải quyết được nhiều vấn đề.", a: "Đ" }, { t: "Chỉ chọn vật liệu rẻ tiền bất kể độ bền.", a: "S" }] },
+            { q: "Tiết kiệm tài nguyên thiên nhiên:", sub: [{ t: "Vật liệu đều xuất phát từ tài nguyên thiên nhiên.", a: "Đ" }, { t: "Sử dụng ít vật liệu mà vẫn đủ tuổi thọ.", a: "Đ" }, { t: "Ưu tiên năng lượng hoá thạch là tiết kiệm.", a: "S" }, { t: "Vòng đời sản phẩm kiểm soát năng lượng từng giai đoạn.", a: "Đ" }] },
+            { q: "Xu hướng thiết kế vì môi trường:", sub: [{ t: "Dùng vật liệu có khả năng tái chế.", a: "Đ" }, { t: "Quy tắc 6R gồm Rethink và Refuse.", a: "Đ" }, { t: "Refuse là từ chối mọi công nghệ mới.", a: "S" }, { t: "Dễ tháo rời để thuận tiện thay thế linh kiện.", a: "Đ" }] },
+            { q: "Ảnh hưởng thiết kế kĩ thuật:", sub: [{ t: "Vòng đời gồm: sản xuất, sử dụng, thải loại.", a: "Đ" }, { t: "Thẩm mỹ và nhân trắc là yếu tố ảnh hưởng.", a: "Đ" }, { t: "Công nghệ cao nâng cao chất lượng.", a: "Đ" }, { t: "Bền vững là không hại đến tương lai.", a: "Đ" }] },
+            { q: "Ý kiến về nguyên tắc thiết kế:", sub: [{ t: "Bền vững gồm tiết kiệm tài nguyên và tài chính.", a: "Đ" }, { t: "Thiết kế kĩ thuật vận dụng toán học.", a: "Đ" }, { t: "Công nghệ sau không bằng công nghệ trước.", a: "S" }, { t: "Thiết kế bắt đầu bằng xác định vấn đề.", a: "Đ" }] },
+            { q: "Đánh giá quy trình thiết kế:", sub: [{ t: "Luôn hoàn thành sau lần kiểm chứng đầu.", a: "S" }, { t: "Nguyên mẫu là phiên bản hoàn chỉnh cuối cùng.", a: "S" }, { t: "Quy trình gồm 7 bước chuẩn.", a: "Đ" }, { t: "Xác định vấn đề làm rõ nhu cầu khó khăn.", a: "Đ" }] }
+        ];
+
         const questionsDB = {
-            10: {
-                multiple: [
-                    { question: "Vẽ kĩ thuật có vai trò gì trong đời sống?", options: ["Sử dụng sản phẩm hiệu quả và an toàn", "Để chế tạo sản phẩm", "Để lắp ráp sản phẩm", "Để kiểm tra sản phẩm"], answer: 0 },
-                    { question: "Mặt phẳng nằm ngang gọi là gì?", options: ["Mặt phẳng chiếu đứng", "Mặt phẳng chiếu bằng", "Mặt phẳng chiếu cạnh", "Mặt phẳng chiếu nghiêng"], answer: 1 },
-                    { question: "Hướng chiếu từ trên xuống dưới sẽ thu được hình chiếu nào?", options: ["Hình chiếu đứng", "Hình chiếu bằng", "Hình chiếu cạnh", "Hình chiếu từ phía sau"], answer: 1 },
-                    { question: "Tỉ lệ 1:2 là loại tỉ lệ nào?", options: ["Tỉ lệ phóng to", "Tỉ lệ thu nhỏ", "Tỉ lệ nguyên hình", "Tỉ lệ bất kì"], answer: 1 },
-                    { question: "Nét liền đậm thường được dùng để vẽ đường nào?", options: ["Đường gióng", "Đường tâm", "Đường bao thấy", "Đường bao khuất"], answer: 2 },
-                    { question: "Khổ giấy A4 có kích thước bao nhiêu?", options: ["210x297 mm", "297x420 mm", "420x594 mm", "594x841 mm"], answer: 0 },
-                    { question: "Đường chân ren được vẽ bằng nét gì?", options: ["Liền đậm", "Liền mảnh", "Đứt mảnh", "Gạch chấm mảnh"], answer: 1 },
-                    { question: "Trong bản vẽ kĩ thuật, đơn vị độ dài thường dùng là?", options: ["cm", "mm", "m", "dm"], answer: 1 },
-                    { question: "Hình cắt dùng để làm gì?", options: ["Biểu diễn hình dạng bên ngoài", "Biểu diễn cấu tạo bên trong", "Biểu diễn kích thước", "Biểu diễn yêu cầu kĩ thuật"], answer: 1 },
-                    { question: "Ren trong nhìn từ phía ngoài vào, đường đỉnh ren vẽ bằng nét gì?", options: ["Liền mảnh", "Liền đậm", "Đứt mảnh", "Gạch chấm"], answer: 1 },
-                    { question: "Bản vẽ chi tiết bao gồm các nội dung nào?", options: ["Hình biểu diễn, kích thước, yêu cầu kĩ thuật, khung tên", "Hình biểu diễn, bảng kê, khung tên", "Hình biểu diễn, kích thước, bảng kê", "Yêu cầu kĩ thuật, bảng kê, hình cắt"], answer: 0 },
-                    { question: "Bảng kê có trong loại bản vẽ nào?", options: ["Bản vẽ chi tiết", "Bản vẽ lắp", "Bản vẽ nhà", "Bản vẽ cơ sở"], answer: 1 },
-                    { question: "Mặt bằng của bản vẽ nhà dùng để làm gì?", options: ["Biểu diễn chiều cao ngôi nhà", "Biểu diễn vị trí tường, cửa, thiết bị", "Biểu diễn hình dáng mái nhà", "Biểu diễn cấu tạo móng"], answer: 1 },
-                    { question: "Lệnh 'Line' trong AutoCAD dùng để vẽ gì?", options: ["Đường tròn", "Đoạn thẳng", "Hình chữ nhật", "Cung tròn"], answer: 1 },
-                    { question: "Thiết kế kĩ thuật là gì?", options: ["Quá trình sản xuất sản phẩm", "Hoạt động sáng tạo giải quyết vấn đề bằng công nghệ", "Việc mua bán sản phẩm", "Việc sửa chữa máy móc"], answer: 1 },
-                    { question: "Bước đầu tiên của quy trình thiết kế kĩ thuật là gì?", options: ["Xây dựng nguyên mẫu", "Xác định vấn đề", "Tìm hiểu tổng quan", "Xác định yêu cầu"], answer: 1 },
-                    { question: "Yếu tố nhân trắc học trong thiết kế là gì?", options: ["Giá thành sản phẩm", "Sự phù hợp với cơ thể con người", "Màu sắc sản phẩm", "Độ bền vật liệu"], answer: 1 },
-                    { question: "Vòng đời sản phẩm kết thúc ở giai đoạn nào?", options: ["Sử dụng", "Bảo trì", "Thải loại/Tái chế", "Sản xuất"], answer: 2 },
-                    { question: "Hồ sơ kĩ thuật bao gồm gì?", options: ["Chỉ có bản vẽ", "Chỉ có thuyết minh", "Bản vẽ, thuyết minh và các tài liệu liên quan", "Mẫu thử sản phẩm"], answer: 2 },
-                    { question: "Nguyên tắc đơn giản hóa trong thiết kế giúp gì?", options: ["Tăng tính thẩm mỹ cực cao", "Dễ sản xuất và sửa chữa", "Tăng giá thành", "Sử dụng nhiều chi tiết phức tạp"], answer: 1 },
-                    { question: "Công nghệ CAD giúp ích gì cho thiết kế?", options: ["Vẽ chậm hơn vẽ tay", "Tăng độ chính xác và hiệu quả", "Chỉ dùng cho kiến trúc", "Không thể chỉnh sửa"], answer: 1 },
-                    { question: "Mặt đứng của bản vẽ nhà thể hiện điều gì?", options: ["Kết cấu sàn", "Hình dáng bên ngoài ngôi nhà", "Vị trí giường ngủ", "Hệ thống điện"], answer: 1 },
-                    { question: "Đường gióng kích thước vẽ bằng nét gì?", options: ["Liền đậm", "Liền mảnh", "Gạch chấm", "Đứt mảnh"], answer: 1 },
-                    { question: "Hình chiếu đứng có hướng chiếu từ đâu?", options: ["Từ trên xuống", "Từ trước tới", "Từ trái sang", "Từ phải sang"], answer: 1 },
-                    { question: "Kí hiệu ren M10x1 thì 'M' nghĩa là gì?", options: ["Ren hệ Mỹ", "Ren hệ Mét", "Ren vuông", "Ren tròn"], answer: 1 },
-                    { question: "Tỉ lệ 5:1 là tỉ lệ gì?", options: ["Thu nhỏ", "Phóng to", "Nguyên hình", "Tỉ lệ bản vẽ nhà"], answer: 1 },
-                    { question: "Trong AutoCAD, phím 'Esc' dùng để làm gì?", options: ["Lưu bản vẽ", "Hủy lệnh đang thực hiện", "Xóa đối tượng", "Thoát phần mềm"], answer: 1 },
-                    { question: "Phát triển bền vững là gì?", options: ["Khai thác hết tài nguyên", "Đáp ứng nhu cầu hiện tại mà không hại đến tương lai", "Chỉ tập trung vào lợi nhuận", "Dùng năng lượng hóa thạch"], answer: 1 },
-                    { question: "Đường tâm vẽ bằng nét gì?", options: ["Liền đậm", "Gạch chấm mảnh", "Nét đứt", "Nét uốn lượn"], answer: 1 },
-                    { question: "Bản vẽ lắp KHÔNG có nội dung nào sau đây?", options: ["Khung tên", "Bảng kê", "Yêu cầu kĩ thuật", "Kích thước từng chi tiết nhỏ"], answer: 3 }
-                ],
-                tf: [
-                    { q: "Trong quy trình thiết kế kĩ thuật, hãy xác định tính Đúng hoặc Sai:", sub: [{ t: "Quy trình thiết kế kĩ thuật là tiến trình tuyến tính một chiều.", a: "S" }, { t: "Bước 'Xây dựng nguyên mẫu' thực hiện sau khi lựa chọn giải pháp tối ưu.", a: "Đ" }, { t: "Tìm hiểu tổng quan giúp tránh sai lầm đã có.", a: "Đ" }, { t: "Hồ sơ kĩ thuật chỉ bao gồm bản vẽ chi tiết.", a: "S" }] },
-                    { q: "Đối với nguyên tắc bền vững trong thiết kế:", sub: [{ t: "Đơn giản hoá khuyến khích kết cấu phức tạp.", a: "S" }, { t: "Tối thiểu tài chính nhằm tạo sản phẩm tốt trong nguồn lực hữu hạn.", a: "Đ" }, { t: "Tiết kiệm tài nguyên không cần quan tâm năng lượng tái tạo.", a: "S" }, { t: "Quy tắc 6R là nội dung cốt lõi của bảo vệ môi trường.", a: "Đ" }] },
-                    { q: "Trong bản vẽ kĩ thuật, quy ước biểu diễn ren:", sub: [{ t: "Ren nhìn thấy: đỉnh ren và giới hạn ren vẽ bằng nét liền đậm.", a: "Đ" }, { t: "Vòng chân ren vẽ hở 1/4 vòng bằng nét liền mảnh.", a: "Đ" }, { t: "Ren che khuất: đỉnh ren vẽ bằng nét đứt mảnh.", a: "Đ" }, { t: "Đường chân ren vẽ bằng nét liền đậm.", a: "S" }] },
-                    { q: "Về kí hiệu và ứng dụng của ren:", sub: [{ t: "Ren ngoài hình thành ở mặt trong của lỗ.", a: "S" }, { t: "Ren dùng để ghép nối và truyền chuyển động.", a: "Đ" }, { t: "Sq dùng cho ren vuông, Tr dùng cho ren thang.", a: "Đ" }, { t: "Hai chi tiết lắp ghép được chỉ cần cùng đường kính.", a: "S" }] },
-                    { q: "Bản vẽ chi tiết là tài liệu kĩ thuật quan trọng:", sub: [{ t: "Bản vẽ chi tiết gồm: hình biểu diễn, kích thước, yêu cầu kĩ thuật, khung tên.", a: "Đ" }, { t: "Yêu cầu kĩ thuật chỉ gồm chỉ dẫn vật liệu.", a: "S" }, { t: "Dùng làm căn cứ chế tạo và kiểm tra chi tiết.", a: "Đ" }, { t: "Bảng kê là thành phần bắt buộc của bản vẽ chi tiết.", a: "S" }] },
-                    { q: "Về bản vẽ lắp và vị trí tương quan:", sub: [{ t: "Bản vẽ lắp dùng để lắp ráp, vận hành và kiểm tra.", a: "Đ" }, { t: "Kích thước chung xác định tổng chiều dài, rộng, cao.", a: "Đ" }, { t: "Bảng kê liệt kê số thứ tự, tên gọi, số lượng, vật liệu.", a: "Đ" }, { t: "Dựa vào bản vẽ lắp biết chính xác độ nhám từng chi tiết đơn lẻ.", a: "S" }] },
-                    { q: "Về các loại hình biểu diễn trong bản vẽ nhà:", sub: [{ t: "Mặt bằng đi qua các cửa sổ (cách sàn khoảng 1,5m).", a: "Đ" }, { t: "Mặt đứng thể hiện hình dáng kiến trúc bên ngoài.", a: "Đ" }, { t: "Mặt cắt thể hiện kết cấu và chiều cao các tầng.", a: "Đ" }, { t: "Hình chiếu phối cảnh chỉ dùng để trang trí.", a: "S" }] },
-                    { q: "Về quy ước trong bản vẽ xây dựng:", sub: [{ t: "Thiết kế xây dựng gồm: phương án, kĩ thuật, thi công.", a: "Đ" }, { t: "Mặt bằng tổng thể thể hiện vị trí công trình, cây xanh.", a: "Đ" }, { t: "Các bộ phận cửa, cầu thang dùng kí hiệu quy ước.", a: "Đ" }, { t: "Mặt phẳng cắt đi dọc nhà thu được mặt đứng.", a: "S" }] },
-                    { q: "Về ứng dụng phần mềm CAD:", sub: [{ t: "Lập bản vẽ bằng máy tính chính xác và nhanh chóng.", a: "Đ" }, { t: "Quy trình CAD kết thúc bằng thiết lập thông số ban đầu.", a: "S" }, { t: "CAD hỗ trợ cơ khí, xây dựng, kiến trúc.", a: "Đ" }, { t: "Bản vẽ điện tử khó sửa chữa hơn bản vẽ tay.", a: "S" }] },
-                    { q: "Về chức năng trong AutoCAD:", sub: [{ t: "Vùng đồ hoạ hiển thị nội dung bản vẽ, hệ toạ độ.", a: "Đ" }, { t: "OSNAP giúp xác định điểm đầu, cuối chính xác.", a: "Đ" }, { t: "Ortho bật cho phép vẽ đường xiên tự do.", a: "S" }, { t: "Zoom dùng thay đổi kích thước thực tế vật thể.", a: "S" }] },
-                    { q: "Đặc điểm thiết kế kĩ thuật:", sub: [{ t: "Là hoạt động vận dụng toán học, khoa học và công nghệ.", a: "Đ" }, { t: "Không cần bước thử nghiệm hay đánh giá.", a: "S" }, { t: "Giúp nhìn nhận vấn đề mang tính hệ thống.", a: "Đ" }, { t: "Thiết kế kĩ thuật và mĩ thuật là một.", a: "S" }] },
-                    { q: "Vai trò thiết kế kĩ thuật:", sub: [{ t: "Giúp cải tiến và tạo ra sản phẩm mới.", a: "Đ" }, { t: "Nhà thiết kế sản phẩm chỉ thiết kế công viên.", a: "S" }, { t: "Đòi hỏi tư duy không gian và năng lực sáng tạo.", a: "Đ" }, { t: "Kiến trúc sư thiết kế toà nhà và giám sát bảo trì.", a: "Đ" }] },
-                    { q: "Tính lặp lại trong quy trình thiết kế:", sub: [{ t: "Người thiết kế có thể quay lại các bước trước để điều chỉnh.", a: "Đ" }, { t: "Xác định yêu cầu không liên quan đến kiểm chứng giải pháp.", a: "S" }, { t: "Tìm hiểu tổng quan giúp tránh sai lầm lặp lại.", a: "Đ" }, { t: "Nguyên mẫu dùng để kiểm tra mức độ đáp ứng tiêu chí.", a: "Đ" }] },
-                    { q: "Nhiệm vụ trong quy trình thiết kế:", sub: [{ t: "Xác định vấn đề cần trả lời: Vấn đề là gì? Ai gặp?.", a: "Đ" }, { t: "Chỉ nên đưa ra một giải pháp duy nhất để tập trung.", a: "S" }, { t: "Hồ sơ kĩ thuật gồm kết cấu và quy trình công nghệ.", a: "Đ" }, { t: "Xây dựng nguyên mẫu là bước cuối cùng.", a: "S" }] },
-                    { q: "Yếu tố sản phẩm trong thiết kế:", sub: [{ t: "Thẩm mĩ không cần phù hợp chức năng.", a: "S" }, { t: "Nhân trắc đảm bảo phù hợp kích thước cơ thể.", a: "Đ" }, { t: "Màu đỏ biểu thị nguy hiểm, xanh biểu thị an toàn.", a: "Đ" }, { t: "Thiết kế bền vững không cần xem xét môi trường.", a: "S" }] },
-                    { q: "Yếu tố chi phối quá trình thiết kế:", sub: [{ t: "Khuyến khích dùng năng lượng hoá thạch.", a: "S" }, { t: "Vòng đời sản phẩm đánh giá mức tiêu hao năng lượng.", a: "Đ" }, { t: "Tài chính quyết định chất lượng và giá thành.", a: "Đ" }, { t: "Công nghệ hiện có có thể là ràng buộc.", a: "Đ" }] },
-                    { q: "Nguyên tắc tối ưu trong giải pháp:", sub: [{ t: "Lặp đi lặp lại là tiến trình một chiều.", a: "S" }, { t: "Đơn giản hoá tối giản hình thức và chức năng.", a: "Đ" }, { t: "Tối ưu chỉ tập trung khách hàng.", a: "S" }, { t: "Tối thiểu tài chính giúp chi phí thấp nhất.", a: "Đ" }] },
-                    { q: "Thiết kế bảo vệ tài nguyên:", sub: [{ t: "Ưu tiên năng lượng không tái tạo như dầu thô.", a: "S" }, { t: "Sử dụng ít vật liệu nhất vẫn đảm bảo độ bền.", a: "Đ" }, { t: "Quy tắc 6R là cốt lõi bảo vệ môi trường.", a: "Đ" }, { t: "Sử dụng vật liệu dễ phân huỷ.", a: "Đ" }] },
-                    { q: "Kiểm soát chất lượng quy trình:", sub: [{ t: "Lặp lại nhằm điều chỉnh chất lượng từng bước.", a: "Đ" }, { t: "Xây dựng nguyên mẫu có tính lặp lại cao.", a: "Đ" }, { t: "Đơn giản hoá khuyến khích hình thức cầu kì.", a: "S" }, { t: "Phân tích giải pháp hiện có hỗ trợ đơn giản hoá.", a: "Đ" }] },
-                    { q: "Ràng buộc trong lựa chọn giải pháp:", sub: [{ t: "Giải pháp tối ưu không bị ràng buộc bởi chi phí.", a: "S" }, { t: "Nhu cầu khách hàng là ràng buộc quan trọng nhất.", a: "Đ" }, { t: "Tối thiểu tài chính giải quyết được nhiều vấn đề.", a: "Đ" }, { t: "Chỉ chọn vật liệu rẻ tiền bất kể độ bền.", a: "S" }] },
-                    { q: "Tiết kiệm tài nguyên thiên nhiên:", sub: [{ t: "Vật liệu đều xuất phát từ tài nguyên thiên nhiên.", a: "Đ" }, { t: "Sử dụng ít vật liệu mà vẫn đủ tuổi thọ.", a: "Đ" }, { t: "Ưu tiên năng lượng hoá thạch là tiết kiệm.", a: "S" }, { t: "Vòng đời sản phẩm kiểm soát năng lượng từng giai đoạn.", a: "Đ" }] },
-                    { q: "Xu hướng thiết kế vì môi trường:", sub: [{ t: "Dùng vật liệu có khả năng tái chế.", a: "Đ" }, { t: "Quy tắc 6R gồm Rethink và Refuse.", a: "Đ" }, { t: "Refuse là từ chối mọi công nghệ mới.", a: "S" }, { t: "Dễ tháo rời để thuận tiện thay thế linh kiện.", a: "Đ" }] },
-                    { q: "Ảnh hưởng thiết kế kĩ thuật:", sub: [{ t: "Vòng đời gồm: sản xuất, sử dụng, thải loại.", a: "Đ" }, { t: "Thẩm mỹ và nhân trắc là yếu tố ảnh hưởng.", a: "Đ" }, { t: "Công nghệ cao nâng cao chất lượng.", a: "Đ" }, { t: "Bền vững là không hại đến tương lai.", a: "Đ" }] },
-                    { q: "Ý kiến về nguyên tắc thiết kế:", sub: [{ t: "Bền vững gồm tiết kiệm tài nguyên và tài chính.", a: "Đ" }, { t: "Thiết kế kĩ thuật vận dụng toán học.", a: "Đ" }, { t: "Công nghệ sau không bằng công nghệ trước.", a: "S" }, { t: "Thiết kế bắt đầu bằng xác định vấn đề.", a: "Đ" }] },
-                    { q: "Đánh giá quy trình thiết kế:", sub: [{ t: "Luôn hoàn thành sau lần kiểm chứng đầu.", a: "S" }, { t: "Nguyên mẫu là phiên bản hoàn chỉnh cuối cùng.", a: "S" }, { t: "Quy trình gồm 7 bước chuẩn.", a: "Đ" }, { t: "Xác định vấn đề làm rõ nhu cầu khó khăn.", a: "Đ" }] }
-                ]
-            }
+            10: { multiple: commonMultiple, tf: commonTF },
+            11: { multiple: commonMultiple, tf: commonTF }
         };
 
         let state = { grade: 0, type: '', list: [], userAns: {}, isReview: false, timer: null, timeLeft: 1500, isMockExam: false };
-
-        function maintenanceAlert() {
-            alert("⚠️ Hệ thống đang bảo trì!\nVui lòng quay lại sau.");
-        }
 
         function selectGrade(g) {
             state.grade = g;
@@ -176,8 +194,8 @@
 
         function prepareMockExam() {
             state.type = 'mock'; state.isReview = false; state.userAns = {}; state.isMockExam = true;
-            let allM = JSON.parse(JSON.stringify(questionsDB[10].multiple));
-            let allTF = JSON.parse(JSON.stringify(questionsDB[10].tf));
+            let allM = JSON.parse(JSON.stringify(questionsDB[state.grade].multiple));
+            let allTF = JSON.parse(JSON.stringify(questionsDB[state.grade].tf));
             state.list = [...shuffle(allM).slice(0, 12), ...shuffle(allTF).slice(0, 4)];
             state.list.forEach((q, i) => {
                 q.originalType = i < 12 ? 'multiple' : 'tf';
@@ -188,7 +206,7 @@
 
         function prepareQuiz(type) {
             state.type = type; state.isReview = false; state.userAns = {}; state.isMockExam = false;
-            let data = JSON.parse(JSON.stringify(questionsDB[10][type]));
+            let data = JSON.parse(JSON.stringify(questionsDB[state.grade][type]));
             state.list = shuffle(data);
             if(type === 'tf') state.list.forEach(q => q.sub = shuffle(q.sub));
             goScreen(3); render(); startTimer();
@@ -286,6 +304,7 @@
         }
 
         function showReview() { state.isReview = true; goScreen(3); render(); window.scrollTo(0,0); }
+        
         function goScreen(id) {
             document.querySelectorAll('[id^="screen-"]').forEach(s => s.classList.add('hidden'));
             document.getElementById(`screen-${id}`).classList.remove('hidden');
